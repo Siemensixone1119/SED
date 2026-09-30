@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: sed-postgres
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_USER: sed
+      POSTGRES_PASSWORD: sed_password
+      POSTGRES_DB: sed_db
+
+    ports:
+      - "5433:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
