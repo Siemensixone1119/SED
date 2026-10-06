@@ -5,9 +5,9 @@ services:
     restart: unless-stopped
 
     environment:
-      POSTGRES_USER: sed
-      POSTGRES_PASSWORD: sed_password
-      POSTGRES_DB: sed_db
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      POSTGRES_DB: $POSTGRES_DB
 
     ports:
       - "5433:5432"
