@@ -14,6 +14,7 @@ export class EmployeeService {
   }
 
   async importEmployees(file: Express.Multer.File) {
+    console.time('Excel parsing');
     const workbook = new Workbook();
     await workbook.xlsx.load(file.buffer);
     const employeeList: EmployeeValide[] = []
@@ -48,7 +49,7 @@ export class EmployeeService {
 
       employeeList.push(result.data)
     }
-
+    console.timeEnd('Excel parsing');
     return this.employeeRepo.upsertMany(employeeList)
   }
 }
