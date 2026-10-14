@@ -23,28 +23,40 @@ model Employee {
   positionId      Int
   managerId       Int?
   createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  updatedAt       DateTime @default(now()) @updatedAt
 
   manager      Employee?  @relation("EmployeeManager", fields: [managerId], references: [id])
   subordinates Employee[] @relation("EmployeeManager")
   department   Department @relation(fields: [departmentId], references: [id])
   position     Position   @relation(fields: [positionId], references: [id])
+  session      Session[]
 }
 
 model Department {
-  id   Int    @id @default(autoincrement())
-  name String
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   employees Employee[]
 }
 
 model Position {
-  id   Int    @id @default(autoincrement())
-  name String
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   employees Employee[]
+}
+
+model Session {
+  id         Int      @id @default(autoincrement())
+  employeeId Int
+  tokenHash  String   @unique
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+
+  employee Employee @relation(fields: [employeeId], references: [id])
 }
